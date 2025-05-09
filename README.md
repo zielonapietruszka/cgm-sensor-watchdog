@@ -1,8 +1,8 @@
-# cgm-sensor-watchdog - Monitor Dostępności Sensorów CGM do pompy 780G MMT-5120
+# 🏥 cgm-sensor-watchdog - Monitor Dostępności Sensorów CGM do pompy 780G MMT-5120
 
 Aplikacja do monitorowania dostępności sensorów CGM Simplera Sync do pompy 780G MMT-5120 w polskich sklepach medycznych. Automatycznie sprawdza dostępność produktu i wysyła powiadomienia na telefon, gdy sensor jest dostępny.
 
-## Szybki start (tylko powiadomienia)
+## 📱 Szybki start (tylko powiadomienia)
 
 Jeśli chcesz tylko otrzymywać powiadomienia o dostępności sensora, wystarczy że:
 
@@ -16,16 +16,16 @@ Jeśli chcesz tylko otrzymywać powiadomienia o dostępności sensora, wystarczy
    - Wpisz nazwę kanału: `sensor-cgm`
    - Kliknij "Subscribe"
 
-Gotowe! Będziesz otrzymywać powiadomienia, gdy sensor stanie się dostępny w którymkolwiek z monitorowanych sklepów.
+✅ Gotowe! Będziesz otrzymywać powiadomienia, gdy sensor stanie się dostępny w którymkolwiek z monitorowanych sklepów.
 
-## Monitorowane sklepy
+## 🏪 Monitorowane sklepy
 
 - Diabetyk24.pl
 - Medital.pl
 - Infusion.pl
 - SOS Diabetyka
 
-## Instalacja lokalna (opcjonalnie)
+## 💻 Instalacja lokalna (opcjonalnie)
 
 Jeśli chcesz uruchomić skrypt lokalnie na swoim komputerze to:
 
@@ -47,11 +47,8 @@ python check_product.py
 
 Skrypt  sprawdzi dostępność sensora w sklepach i wyśle powiadomienie gdy będzie dostępny.
 
-## Automatyczne uruchamianie
+## ⏰ Automatyczne uruchamianie
 
-Skrypt jest skonfigurowany do automatycznego uruchamiania się co godzinę poprzez GitHub Actions. Nie musisz nic dodatkowo konfigurować - powiadomienia będą przychodzić automatycznie.
+Skrypt jest skonfigurowany do automatycznego uruchamiania poprzez GitHub Actions co 15 minut między 7:00 a 22:00 UTC (czyli 9:00–00:00 czasu lokalnego w Polsce).
 
-
----
-
-*Projekt tworzony z myślą o osobach szukających wyrobów medycznych, które często są  niedostępne w sprzedaży.*
+*Projekt tworzony z myślą o osobach szukających wyrobów medycznych, które często są niedostępne w sprzedaży.*
