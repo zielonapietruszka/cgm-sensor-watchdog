@@ -1,6 +1,6 @@
 # MediWatchdog
 
-**MediWatchdog** to prosty bot monitorowania trudno dostępnych produktów medycznych w sklepach internetowych. Wykorzystuje GitHub Actions do cyklicznego sprawdzania stron oraz wysyła powiadomienia push (np. przez ntfy.sh) gdy produkt pojawi się na stanie.
+**MediWatchdog** to prosty bot do monitorowania trudno dostępnych produktów medycznych w sklepach internetowych. Wykorzystuje GitHub Actions do cyklicznego sprawdzania stron oraz wysyła powiadomienia push (np. przez ntfy.sh) gdy produkt pojawi się na stanie.
 
 ## 🔧 Jak to działa?
 

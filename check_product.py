@@ -9,7 +9,7 @@ NTFY_URL = f'https://ntfy.sh/{NTFY_TOPIC}'
 def is_available():
     response = requests.get(URL, headers=HEADERS)
     soup = BeautifulSoup(response.content, 'html.parser')
-    return "Brak produktu na stanie" not in soup.text
+    return "Brak produktu na stanie" in soup.text
 
 def send_notification():
     requests.post(NTFY_URL, data='Produkt Sensor CGM jest dostępny na diabetyk24!')
