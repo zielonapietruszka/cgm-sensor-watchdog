@@ -1,35 +1,90 @@
-# MediWatchdog
+# cgm-sensor-watchdog - Monitor Dostępności Sensorów CGM
 
-**MediWatchdog** to prosty bot do monitorowania trudno dostępnych produktów medycznych w sklepach internetowych. Wykorzystuje GitHub Actions do cyklicznego sprawdzania stron oraz wysyła powiadomienia push (np. przez ntfy.sh) gdy produkt pojawi się na stanie.
+Aplikacja do monitorowania dostępności sensorów CGM Simplera Sync w polskich sklepach medycznych. Skrypt automatycznie sprawdza dostępność produktu i wysyła powiadomienia na telefon, gdy sensor staje się dostępny.
 
-## 🔧 Jak to działa?
+## Szybki start (tylko powiadomienia)
 
-1. Skrypt w Pythonie sprawdza stronę internetową z produktem.
-2. Jeśli wykryje zmianę (produkt dostępny), wysyła powiadomienie.
-3. GitHub Actions automatycznie uruchamia skrypt co 15 minut (w określonych godzinach).
+Jeśli chcesz tylko otrzymywać powiadomienia o dostępności sensora, wystarczy:
 
-## 📦 Przykład monitorowanego produktu
+1. Pobierz aplikację ntfy z oficjalnego sklepu:
+   - [Google Play Store](https://play.google.com/store/apps/details?id=io.heckel.ntfy)
+   - [App Store](https://apps.apple.com/us/app/ntfy/id1625396347)
 
-- Sensor CGM Simplera™ Sync 1 szt. do pompy MiniMed 780G  
-  https://diabetyk24.pl/sensor-cgm-simpleratm-sync-1-szt-do-pompy-minimed-780g-mmt-5120d2
+2. Po zainstalowaniu aplikacji:
+   - Otwórz aplikację ntfy
+   - Kliknij "+" aby dodać nową subskrypcję
+   - Wpisz nazwę kanału: `sensor-cgm`
+   - Kliknij "Subscribe"
 
-## 🔔 Powiadomienia
+Gotowe! Będziesz otrzymywać powiadomienia, gdy sensor stanie się dostępny w którymkolwiek z monitorowanych sklepów.
 
-Projekt wykorzystuje [ntfy.sh](https://ntfy.sh) — darmowy system do otrzymywania powiadomień push.  
-Zainstaluj aplikację mobilną **ntfy** i zasubskrybuj swój kanał (np. `sensor-cgm`).
+## Monitorowane sklepy
 
-## 🛠️ Jak dodać kolejną stronę?
+- Diabetyk24.pl
+- Medital.pl
+- Infusion.pl
+- SOS Diabetyka
 
-1. Skopiuj istniejący skrypt `check_product.py` jako nowy plik (np. `check_product_2.py`)
-2. Podmień adres URL i warunek dostępności
-3. Dodaj nowy `step` w pliku `.github/workflows/check.yml` uruchamiający dodatkowy skrypt
+## Instalacja lokalna (opcjonalnie)
 
-## 📅 Harmonogram
-Skrypt uruchamia się automatycznie co 15 minut między 7:00 a 22:00 UTC (czyli 9:00–00:00 czasu lokalnego w Polsce).
+Jeśli chcesz uruchomić skrypt lokalnie na swoim komputerze, wykonaj poniższe kroki:
 
-## 📜 Licencja
+### Wymagania
 
-Projekt open-source, MIT License.
+- Python 3.6 lub nowszy
+- Biblioteki Python:
+  - requests
+  - beautifulsoup4
+
+### Instalacja
+
+1. Sklonuj repozytorium:
+```bash
+git clone https://github.com/twoje-repozytorium/MediWatch.git
+cd MediWatch
+```
+
+2. Zainstaluj wymagane biblioteki:
+```bash
+pip install -r requirements.txt
+```
+
+### Uruchomienie
+
+1. Uruchom skrypt:
+```bash
+python check_product.py
+```
+
+2. Skrypt będzie sprawdzał dostępność sensora w sklepach i wysyłał powiadomienia na Twój telefon, gdy produkt stanie się dostępny.
+
+## Automatyczne uruchamianie
+
+Skrypt jest skonfigurowany do automatycznego uruchamiania się co godzinę poprzez GitHub Actions. Nie musisz nic dodatkowo konfigurować - powiadomienia będą przychodzić automatycznie.
+
+## Powiadomienia
+
+Gdy sensor stanie się dostępny w którymkolwiek ze sklepów, otrzymasz powiadomienie na telefon z informacją o dostępności i nazwą sklepu.
+
+## Rozwiązywanie problemów
+
+1. Jeśli nie otrzymujesz powiadomień:
+   - Sprawdź czy aplikacja ntfy jest zainstalowana i skonfigurowana
+   - Upewnij się, że subskrybujesz kanał `sensor-cgm`
+   - Sprawdź ustawienia powiadomień w systemie
+
+2. Jeśli skrypt nie działa (tylko dla instalacji lokalnej):
+   - Upewnij się, że masz zainstalowane wszystkie wymagane biblioteki
+   - Sprawdź połączenie z internetem
+   - Sprawdź logi w GitHub Actions
+
+## Wsparcie
+
+W przypadku problemów lub pytań, utwórz issue w repozytorium projektu.
+
+## Licencja
+
+Ten projekt jest udostępniany na licencji MIT. Szczegóły znajdują się w pliku LICENSE.
 
 ---
 
