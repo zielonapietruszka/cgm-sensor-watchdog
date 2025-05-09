@@ -14,7 +14,7 @@ Jeśli chcesz tylko otrzymywać powiadomienia o dostępności sensora, wystarczy
    - Otwórz aplikację ntfy
    - Kliknij "+" aby dodać nową subskrypcję
    - Wpisz nazwę kanału: `sensor-cgm`
-   - Kliknij "Subscribe"
+   - Kliknij "Subskrybuj'
 
 ✅ Gotowe! Będziesz otrzymywać powiadomienia, gdy sensor stanie się dostępny w którymkolwiek z monitorowanych sklepów.
 
