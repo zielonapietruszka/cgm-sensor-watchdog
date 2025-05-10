@@ -29,7 +29,8 @@ STORES = {
         'url': "https://sosdiabetyka.pl/product?productId=670ce787c8be4494e25ebdcc",
         'unavailable_text': "Produkt niedostępny",
         'name': "SOS Diabetyka",
-        'check_type': 'button',
+        'check_type': 'id',
+        'element_id': 'addToCart',
         'element_type': 'button'
     }
 }
@@ -39,12 +40,9 @@ NTFY_URL = "https://ntfy.sh/sensor-cgm"
 def check_availability_by_element(soup, store_config):
     # Sprawdzanie dostępność produktu wyszukując element po klasie, id lub tagu 
     if store_config['check_type'] == 'button':
-        # Sprawdzanie Buttona
-        if 'button_class' in store_config:
-            # Sprawdzanie dla medital.pl button z konkretną 
+        if 'button_class' in store_config: 
             element = soup.find('button', class_=store_config['button_class'])
         else:
-            # Standardowe sprawdzanie dla przycisku
             element = soup.find('button', string=lambda text: text and store_config['unavailable_text'] in text)
     elif 'class_name' in store_config:
         element = soup.find(store_config['element_type'], class_=store_config['class_name'])
@@ -54,6 +52,8 @@ def check_availability_by_element(soup, store_config):
         return False
 
     if not element:
+        if store_config['check_type'] == 'id':
+            return False
         print(f"⚠️ Nie znaleziono elementu dostępności w {store_config['name']}")
         return False
     
@@ -62,29 +62,47 @@ def check_availability_by_element(soup, store_config):
         if 'button_class' in store_config:
             return False
         return False 
+    elif store_config['check_type'] == 'id':
+        if store_config['name'] == 'Infusion':
+            availability_text = element.get_text().lower().strip()
+            return 'oczekiwanie na dostawę' not in availability_text
+        return True
+    elif store_config['check_type'] == 'class':
+        availability_text = element.get_text().lower().strip()
+        return store_config['unavailable_text'].lower() not in availability_text
     
     availability_text = element.get_text().lower().strip()
     return store_config['unavailable_text'].lower() not in availability_text
 
 def check_product(store_config):
-    response = requests.get(store_config['url'])
-    soup = BeautifulSoup(response.text, "html.parser")
-    
-    is_available = False
-    if store_config['check_type'] in ['class', 'id']:
-        is_available = check_availability_by_element(soup, store_config)
-    else:
-        # Sprawdzanie dla diabetyk24 w tekscie
-        text = soup.get_text().lower()
-        is_available = store_config['unavailable_text'].lower() not in text
+    try:
+        response = requests.get(store_config['url'])
+        if store_config['name'] == 'Diabetyk24' and response.status_code == 404:
+            print(f"✅ Strona niedostępna w {store_config['name']} – wysyłanie powiadomienia.")
+            send_notification(store_config['name'])
+            return True
+            
+        soup = BeautifulSoup(response.text, "html.parser")
+        
+        is_available = False
+        if store_config['check_type'] in ['class', 'id', 'button']:
+            is_available = check_availability_by_element(soup, store_config)
+        else:
+            # Sprawdzanie dla diabetyk24 w tekscie
+            text = soup.get_text().lower()
+            is_available = store_config['unavailable_text'].lower() not in text
 
-    if is_available:
-        print(f"✅ Produkt dostępny w {store_config['name']} – wysyłanie powiadomienia.")
-        send_notification(store_config['name'])
-        return True
-    else:
-        print(f"❌ Produkt niedostępny w {store_config['name']}.")
+        if is_available:
+            print(f"✅ Produkt dostępny w {store_config['name']} – wysyłanie powiadomienia.")
+            send_notification(store_config['name'])
+            return True
+        else:
+            print(f"❌ Produkt niedostępny w {store_config['name']}.")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Błąd podczas sprawdzania {store_config['name']}: {str(e)}")
         return False
+
 # Wysyłanie powiadomienia   
 def send_notification(store_name):
     message = f'🎉 Sensor CGM jest DOSTĘPNY w sklepie {store_name}!'

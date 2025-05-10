@@ -2,6 +2,15 @@
 
 Aplikacja do monitorowania dostępności sensorów CGM Simplera Sync do pompy insulinowej 780G MMT-5120 w polskich sklepach medycznych. Automatycznie sprawdza dostępność produktu i wysyła powiadomienia na telefon, gdy sensor jest dostępny.
 
+## ⏰ Automatyczne uruchamianie
+
+Skrypt jest skonfigurowany do automatycznego uruchamiania poprzez GitHub Actions co 15 minut między 7:00 a 22:00 UTC (czyli 9:00–00:00 czasu lokalnego w Polsce).
+
+## 🔒 Uwaga 
+
+Obecnie program używa otwartego kanału ntfy (`sensor-cgm`), co oznacza że każdy może subskrybować ten kanał i otrzymywać powiadomienia.
+
+
 ## 📱 Szybki start (tylko powiadomienia)
 
 Jeśli chcesz tylko otrzymywać powiadomienia o dostępności sensora, wystarczy że:
@@ -23,7 +32,14 @@ Jeśli chcesz tylko otrzymywać powiadomienia o dostępności sensora, wystarczy
 - Diabetyk24.pl
 - Medital.pl
 - Infusion.pl
-- SOS Diabetyka
+- Sosdiabetyka.pl
+
+## 📋 Do zrobienia
+
+   1. Dodanie prywatnego tokena do kanału ntfy
+   2. Optymalizacja częstotliwości sprawdzania sklepów
+   3. Implementacja systemu przewidywania dostaw
+
 
 ## 💻 Instalacja lokalna (opcjonalnie)
 
@@ -45,10 +61,4 @@ pip install -r requirements.txt
 python check_product.py
 ```
 
-Skrypt  sprawdzi dostępność sensora w sklepach i wyśle powiadomienie gdy będzie dostępny.
-
-## ⏰ Automatyczne uruchamianie
-
-Skrypt jest skonfigurowany do automatycznego uruchamiania poprzez GitHub Actions co 15 minut między 7:00 a 22:00 UTC (czyli 9:00–00:00 czasu lokalnego w Polsce).
-
-*Projekt tworzony z myślą o osobach szukających wyrobów medycznych, które często są niedostępne w sprzedaży.*
+Skrypt sprawdzi dostępność sensora w sklepach, wyświetli status w terminalu i wyśle powiadomienie gdy będzie dostępny.
