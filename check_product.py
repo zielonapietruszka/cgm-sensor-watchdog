@@ -100,7 +100,10 @@ def check_product(store_config):
             print(f"❌ Produkt niedostępny w {store_config['name']}.")
             return False
     except requests.exceptions.RequestException as e:
-        print(f"❌ Błąd podczas sprawdzania {store_config['name']}: {str(e)}")
+        print(f"❌ Błąd połączenia z {store_config['name']}: {str(e)}")
+        return False
+    except Exception as e:
+        print(f"❌ Nieoczekiwany błąd w {store_config['name']}: {str(e)}")
         return False
 
 # Wysyłanie powiadomienia   
