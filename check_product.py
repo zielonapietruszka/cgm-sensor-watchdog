@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# Stron do monitorowania
+# Strony do monitorowania
 STORES = {
     'diabetyk24': {
         'url': "https://diabetyk24.pl/sensor-cgm-simpleratm-sync-1-szt-do-pompy-minimed-780g-mmt-5120d2/availability_notification",
@@ -37,11 +37,11 @@ STORES = {
 NTFY_URL = "https://ntfy.sh/sensor-cgm"
 
 def check_availability_by_element(soup, store_config):
-    """Sprawdza dostępność produktu wyszukując element po klasie, id lub tagu i sprawdzając jego tekst."""
-    if store_config['check_type'] == 'button':
-        # Sprawdzanie dla przycisku
+    # Sprawdzanie dostępność produktu wyszukując element po klasie, id lub tagu 
+        if store_config['check_type'] == 'button':
+        # Sprawdzanie Buttona
         if 'button_class' in store_config:
-            # Specjalne sprawdzanie dla medital.pl - szukamy przycisku z konkretną klasą
+            # Sprawdzanie dla medital.pl button z konkretną 
             element = soup.find('button', class_=store_config['button_class'])
         else:
             # Standardowe sprawdzanie dla przycisku
@@ -57,12 +57,11 @@ def check_availability_by_element(soup, store_config):
         print(f"⚠️ Nie znaleziono elementu dostępności w {store_config['name']}")
         return False
     
-    # Dla przycisku sprawdzamy bezpośrednio jego tekst
+    # Sprawdzanie tekstu buttona
     if store_config['check_type'] == 'button':
         if 'button_class' in store_config:
-            # Dla medital.pl - jeśli przycisk istnieje, to produkt jest niedostępny
             return False
-        return False # Jeśli znaleźliśmy przycisk "Produkt niedostępny", to produkt jest niedostępny
+        return False 
     
     availability_text = element.get_text().lower().strip()
     return store_config['unavailable_text'].lower() not in availability_text
@@ -75,7 +74,7 @@ def check_product(store_config):
     if store_config['check_type'] in ['class', 'id']:
         is_available = check_availability_by_element(soup, store_config)
     else:
-        # Sprawdzanie dla diabetyk24 - cały tekst strony
+        # Sprawdzanie dla diabetyk24 w teks
         text = soup.get_text().lower()
         is_available = store_config['unavailable_text'].lower() not in text
 
@@ -86,7 +85,7 @@ def check_product(store_config):
     else:
         print(f"❌ Produkt niedostępny w {store_config['name']}.")
         return False
-
+# Wysy
 def send_notification(store_name):
     message = f'🎉 Sensor CGM jest DOSTĘPNY w sklepie {store_name}!'
     headers = {'Content-Type': 'text/plain; charset=utf-8'}
