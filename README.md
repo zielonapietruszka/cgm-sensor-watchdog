@@ -1,6 +1,6 @@
-# 🏥 cgm-sensor-watchdog - Monitor Dostępności Sensorów CGM do pompy 780G MMT-5120
+# 🏥 cgm-sensor-watchdog - Monitor Dostępności Sensorów CGM do pompy insulinowej 780G MMT-5120
 
-Aplikacja do monitorowania dostępności sensorów CGM Simplera Sync do pompy 780G MMT-5120 w polskich sklepach medycznych. Automatycznie sprawdza dostępność produktu i wysyła powiadomienia na telefon, gdy sensor jest dostępny.
+Aplikacja do monitorowania dostępności sensorów CGM Simplera Sync do pompy insulinowej 780G MMT-5120 w polskich sklepach medycznych. Automatycznie sprawdza dostępność produktu i wysyła powiadomienia na telefon, gdy sensor jest dostępny.
 
 ## 📱 Szybki start (tylko powiadomienia)
 
