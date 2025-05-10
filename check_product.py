@@ -38,10 +38,10 @@ NTFY_URL = "https://ntfy.sh/sensor-cgm"
 
 def check_availability_by_element(soup, store_config):
     # Sprawdzanie dostępność produktu wyszukując element po klasie, id lub tagu 
-        if store_config['check_type'] == 'button':
+    if store_config['check_type'] == 'button':
         # Sprawdzanie Buttona
         if 'button_class' in store_config:
-            # Sprawdzanie dla medital.pl button z konkretną klasą
+            # Sprawdzanie dla medital.pl button z konkretną 
             element = soup.find('button', class_=store_config['button_class'])
         else:
             # Standardowe sprawdzanie dla przycisku
@@ -74,7 +74,7 @@ def check_product(store_config):
     if store_config['check_type'] in ['class', 'id']:
         is_available = check_availability_by_element(soup, store_config)
     else:
-        # Sprawdzanie dla diabetyk24 w tekscie strony
+        # Sprawdzanie dla diabetyk24 w tekscie
         text = soup.get_text().lower()
         is_available = store_config['unavailable_text'].lower() not in text
 
@@ -85,7 +85,7 @@ def check_product(store_config):
     else:
         print(f"❌ Produkt niedostępny w {store_config['name']}.")
         return False
-# Wysy
+# Wysyłanie powiadomienia   
 def send_notification(store_name):
     message = f'🎉 Sensor CGM jest DOSTĘPNY w sklepie {store_name}!'
     headers = {'Content-Type': 'text/plain; charset=utf-8'}
