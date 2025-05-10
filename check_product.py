@@ -41,7 +41,7 @@ def check_availability_by_element(soup, store_config):
         if store_config['check_type'] == 'button':
         # Sprawdzanie Buttona
         if 'button_class' in store_config:
-            # Sprawdzanie dla medital.pl button z konkretną 
+            # Sprawdzanie dla medital.pl button z konkretną klasą
             element = soup.find('button', class_=store_config['button_class'])
         else:
             # Standardowe sprawdzanie dla przycisku
@@ -74,7 +74,7 @@ def check_product(store_config):
     if store_config['check_type'] in ['class', 'id']:
         is_available = check_availability_by_element(soup, store_config)
     else:
-        # Sprawdzanie dla diabetyk24 w teks
+        # Sprawdzanie dla diabetyk24 w tekscie strony
         text = soup.get_text().lower()
         is_available = store_config['unavailable_text'].lower() not in text
 
